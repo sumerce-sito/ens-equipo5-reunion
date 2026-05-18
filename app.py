@@ -356,6 +356,36 @@ El amor todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta.""",
      ]},
 
     {"id":10,"num":11,"title":"Magnificat","icon":"🌟","color":"dorado","tipo":"magnificat","dur":5},
+
+    {"id":11,"num":12,"title":"Oración por la Canonización del P. Henri Caffarel","icon":"✝","color":"rojo","tipo":"oracion","dur":4,
+     "texto":"""**Dios, Padre nuestro,**
+
+pusiste en el corazón de tu siervo Henri Caffarel,
+un impulso de amor que le unía sin reserva a tu Hijo
+y le inspiraba para hablar de Él.
+
+Profeta de nuestro tiempo,
+enseñó la dignidad y la bondad de la vocación de cada uno
+según la llamada que Jesús nos dirige a todos: *"Ven y sígueme".*
+Él despertó el entusiasmo de los cónyuges
+ante la grandeza del sacramento del matrimonio,
+imagen del misterio de unidad y de amor fecundo entre Cristo y la Iglesia.
+Enseñó que sacerdotes y matrimonios
+están llamados a vivir la vocación del amor.
+Guió a las viudas: *¡El amor es más fuerte que la muerte!*
+Impulsado por el Espíritu
+dirigió a muchos creyentes por el camino de la oración.
+Poseído por un fuego devorador, estuvo lleno de Ti, Señor.
+
+**Dios, Padre nuestro,**
+por la intercesión de nuestra Señora
+te pedimos que aceleres el día
+en que la Iglesia proclame la santidad de su vida,
+para que todos descubran la alegría de seguir a tu Hijo,
+cada cual según la vocación del Espíritu.
+
+*Dios Padre nuestro, invocamos al Padre Caffarel para…*
+*(precisar la gracia a pedir)*"""},
 ]
 
 TOTAL = len(SECTIONS)
@@ -1080,27 +1110,6 @@ def render_magnificat():
         {lines}
     </div>""", unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("""
-    <div style="font-family:'Cinzel',serif;font-size:0.78rem;color:#6A1B9A;
-                letter-spacing:2px;margin-bottom:0.7rem;text-align:center;">
-        ✝ ORACIÓN POR LA CANONIZACIÓN DEL P. HENRI CAFFAREL
-    </div>
-    <div class="prayer-box rojo">
-        <em>Dios, Padre nuestro,</em> pusiste en el corazón de tu siervo Henri Caffarel un impulso de amor
-        que le unía sin reserva a tu Hijo y le inspiraba para hablar de Él. Profeta de nuestro tiempo, enseñó
-        la dignidad y la bondad de la vocación de cada uno según la llamada que Jesús nos dirige a todos:
-        «Ven y sígueme». Él despertó el entusiasmo de los cónyuges ante la grandeza del sacramento del
-        matrimonio, imagen del misterio de unidad y de amor fecundo entre Cristo y la Iglesia. Enseñó que
-        sacerdotes y matrimonios están llamados a vivir la vocación del amor. Guió a las viudas:
-        ¡El amor es más fuerte que la muerte! Impulsado por el Espíritu dirigió a muchos creyentes por el
-        camino de la oración. Poseído por un fuego devorador, estuvo lleno de Ti, Señor.<br><br>
-        <em>Dios, Padre nuestro,</em> por la intercesión de nuestra Señora te pedimos que aceleres el día en
-        que la Iglesia proclame la santidad de su vida, para que todos descubran la alegría de seguir a tu
-        Hijo, cada cual según la vocación del Espíritu.<br><br>
-        <strong>Dios Padre nuestro, invocamos al Padre Caffarel para…</strong>
-        <em>(precisar la gracia a pedir)</em>
-    </div>""", unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  RENDER SECCIÓN PRINCIPAL
