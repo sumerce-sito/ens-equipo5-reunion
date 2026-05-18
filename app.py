@@ -21,7 +21,6 @@ REVIEWERS = [
     {"id":"PRIETO HOYOS",               "label":"PRIETO HOYOS",                      "tipo":"pareja",      "icon":"👫", "fg":"#C9930A","bg":"#FFF8E1"},
     {"id":"OJEDA RODRÍGUEZ",            "label":"OJEDA RODRÍGUEZ",                   "tipo":"pareja",      "icon":"👫", "fg":"#2E7D32","bg":"#E8F5E9"},
     {"id":"OMAR Y SONIA",               "label":"OMAR Y SONIA",                      "tipo":"sector",      "icon":"🌟", "fg":"#B35C00","bg":"#FFF3E0"},
-    {"id":"PAREJA INVITADA",            "label":"Pareja Invitada",                   "tipo":"invitada",    "icon":"🎉", "fg":"#00695C","bg":"#E0F2F1"},
     {"id":"P. FAIDER SANTIAGO",         "label":"P. Faider Julián Santiago Díaz",    "tipo":"consiliario", "icon":"✝",  "fg":"#6A1B9A","bg":"#F3E5F5"},
 ]
 
@@ -794,8 +793,6 @@ def render_preview():
                 badge_html = '<div style="font-size:0.7rem;color:#6A1B9A;font-style:italic;font-weight:600;">Consiliario</div>'
             elif r["tipo"] == "sector":
                 badge_html = '<div style="font-size:0.7rem;color:#B35C00;font-weight:700;background:#FFF3E0;border-radius:6px;padding:1px 6px;display:inline-block;">⭐ Resp. de Sector</div>'
-            elif r["tipo"] == "invitada":
-                badge_html = '<div style="font-size:0.7rem;color:#00695C;font-weight:700;background:#E0F2F1;border-radius:6px;padding:1px 6px;display:inline-block;">🎉 Pareja Invitada</div>'
             else:
                 badge_html = ""
             cons_html = badge_html
@@ -825,8 +822,6 @@ def render_preview():
                     lbl = f"✝  Ya revisé — {r['label']}"
                 elif r["tipo"] == "sector":
                     lbl = f"🌟  Ya revisamos — {r['label']}"
-                elif r["tipo"] == "invitada":
-                    lbl = f"🎉  Ya revisamos — Pareja Invitada"
                 else:
                     lbl = f"👫  Ya revisamos — {r['id']}"
                 if st.button(lbl, key=f"mk_{rid}",
