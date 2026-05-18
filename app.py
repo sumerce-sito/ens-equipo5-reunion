@@ -15,6 +15,7 @@ st.set_page_config(
 LOGO_PATH    = Path(__file__).parent / "assets" / "logo.png"
 REVIEWS_FILE = Path(__file__).parent / "reviews.json"
 AUDIO_PATH   = Path(__file__).parent / "assets" / "cancion.mp3"
+PAPIRO_PATH  = Path(__file__).parent / "assets" / "papiro.jpg"
 
 REVIEWERS = [
     {"id":"DÍAZ ARIAS",                 "label":"DÍAZ ARIAS",                        "tipo":"pareja",      "icon":"👫", "fg":"#1B3A6B","bg":"#D6E4F7"},
@@ -39,7 +40,8 @@ def img_b64(path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-LOGO_B64 = img_b64(LOGO_PATH) if LOGO_PATH.exists() else ""
+LOGO_B64   = img_b64(LOGO_PATH)   if LOGO_PATH.exists()   else ""
+PAPIRO_B64 = img_b64(PAPIRO_PATH) if PAPIRO_PATH.exists() else ""
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  REVIEWS PERSISTENCE
@@ -89,23 +91,9 @@ st.markdown("""
 html, body, [class*="css"]  { font-family:'Lato',sans-serif; }
 .main .block-container       { padding: 0.8rem 0.9rem 5rem; max-width: 700px; }
 
-/* ── Fondo papiro antiguo ─────────────────────────────── */
+/* ── Fondo papiro antiguo — imagen real inyectada abajo ── */
 .stApp {
-    background-color: #E8DCC8;
-    background-image:
-        /* Grano de papel — puntos finos aleatorios */
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeBlend in='SourceGraphic' mode='multiply'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.10'/%3E%3C/svg%3E"),
-        /* Vetas horizontales suaves de pergamino */
-        repeating-linear-gradient(
-            180deg,
-            transparent 0px,
-            transparent 38px,
-            rgba(139,100,40,0.04) 38px,
-            rgba(139,100,40,0.04) 40px
-        ),
-        /* Degradado base cálido beige-ocre */
-        radial-gradient(ellipse at 20% 20%, #F2E6C8 0%, #E0C99A 40%, #C9A96E 100%);
-    background-attachment: fixed;
+    background-color: #D4B070;
 }
 #MainMenu, footer, header    { visibility: hidden; }
 
@@ -286,6 +274,19 @@ html, body, [class*="css"]  { font-family:'Lato',sans-serif; }
 .stTextArea textarea { font-size:0.95rem !important; line-height:1.6 !important; }
 </style>
 """, unsafe_allow_html=True)
+
+# Inyectar textura de papiro como fondo real (base64 cargado en runtime)
+if PAPIRO_B64:
+    st.markdown(f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/jpeg;base64,{PAPIRO_B64}") !important;
+        background-repeat: repeat !important;
+        background-size: 600px 600px !important;
+        background-attachment: fixed !important;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  SECCIONES
