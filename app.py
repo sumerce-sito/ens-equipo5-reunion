@@ -14,6 +14,7 @@ st.set_page_config(
 # ─────────────────────────────────────────────────────────────────────────────
 LOGO_PATH    = Path(__file__).parent / "assets" / "logo.png"
 REVIEWS_FILE = Path(__file__).parent / "reviews.json"
+AUDIO_PATH   = Path(__file__).parent / "assets" / "cancion.mp3"
 
 REVIEWERS = [
     {"id":"DÍAZ ARIAS",                 "label":"DÍAZ ARIAS",                        "tipo":"pareja",      "icon":"👫", "fg":"#1B3A6B","bg":"#D6E4F7"},
@@ -395,16 +396,17 @@ TOTAL = len(SECTIONS)
 # ─────────────────────────────────────────────────────────────────────────────
 def init():
     defs = {
-        "in_meeting": False,       # False = pantalla de revisión previa
-        "show_map":   True,        # True = mostrar mapa, False = sección activa
-        "current":    0,
-        "completed":  [False]*TOTAL,
-        "notes":      {},
-        "duties":     [False]*6,
-        "start":      None,
-        "sec_start":  time.time(),
-        "seen_preview": set(),     # ids de secciones leídas en revisión previa
-        "preview_sec":  None,      # id de la tarjeta abierta en detalle (None = grid)
+        "in_meeting":   False,
+        "show_map":     True,
+        "current":      0,
+        "completed":    [False]*TOTAL,
+        "notes":        {},
+        "duties":       [False]*6,
+        "start":        None,
+        "sec_start":    time.time(),
+        "seen_preview": set(),
+        "preview_sec":  None,
+        "audio_played": False,     # True = ya se intentó autoplay esta sesión
     }
     for k,v in defs.items():
         if k not in st.session_state: st.session_state[k]=v
@@ -554,6 +556,61 @@ def _sec_content_html(sec):
             out += f'<div style="font-size:0.82rem;color:#1B3A6B;font-weight:600;margin-top:8px;">• {campo["label"]}</div>'
 
     return out or '<div style="color:#999;font-size:0.85rem;font-style:italic;">Ver en la reunión.</div>'
+
+
+def render_audio():
+    """Reproduce la canción una sola vez al entrar. Autoplay donde el navegador lo permite;
+    si lo bloquea (iOS / Chrome móvil) queda el reproductor visible para que el usuario lo active."""
+    if not AUDIO_PATH.exists():
+        return
+
+    audio_b64 = base64.b64encode(AUDIO_PATH.read_bytes()).decode()
+
+    if not st.session_state.audio_played:
+        # Primer render: intentar autoplay
+        st.session_state.audio_played = True
+        st.markdown(f"""
+        <div style="background:linear-gradient(135deg,#1B3A6B,#2E5FA3);
+                    border-radius:14px;padding:0.8rem 1.1rem;margin-bottom:1rem;
+                    display:flex;align-items:center;gap:0.8rem;">
+            <span style="font-size:1.4rem;">🎵</span>
+            <div style="flex:1;">
+                <div style="font-family:'Cinzel',serif;font-size:0.72rem;
+                            color:#C9930A;letter-spacing:1px;">CANCIÓN DE LA REUNIÓN</div>
+                <div style="font-size:0.8rem;color:#B0C4DE;margin-top:2px;">
+                    Incompletitud y Gratuidad
+                </div>
+            </div>
+            <audio id="ens_audio" controls style="height:36px;border-radius:8px;max-width:170px;">
+                <source src="data:audio/mp3;base64,{audio_b64}" type="audio/mpeg">
+            </audio>
+        </div>
+        <script>
+            (function() {{
+                var a = document.getElementById('ens_audio');
+                if (a) {{ a.play().catch(function(){{}}); }}
+            }})();
+        </script>
+        """, unsafe_allow_html=True)
+    else:
+        # Siguientes renders: solo el reproductor, sin autoplay
+        st.markdown(f"""
+        <div style="background:linear-gradient(135deg,#1B3A6B,#2E5FA3);
+                    border-radius:14px;padding:0.8rem 1.1rem;margin-bottom:1rem;
+                    display:flex;align-items:center;gap:0.8rem;">
+            <span style="font-size:1.4rem;">🎵</span>
+            <div style="flex:1;">
+                <div style="font-family:'Cinzel',serif;font-size:0.72rem;
+                            color:#C9930A;letter-spacing:1px;">CANCIÓN DE LA REUNIÓN</div>
+                <div style="font-size:0.8rem;color:#B0C4DE;margin-top:2px;">
+                    Incompletitud y Gratuidad
+                </div>
+            </div>
+            <audio controls style="height:36px;border-radius:8px;max-width:170px;">
+                <source src="data:audio/mp3;base64,{audio_b64}" type="audio/mpeg">
+            </audio>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 def render_preview():
@@ -713,6 +770,9 @@ def render_preview():
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+    # ── Canción ──────────────────────────────────────────────────────────────
+    render_audio()
 
     # ── Descarga del documento ───────────────────────────────────────────────
     render_downloads()
