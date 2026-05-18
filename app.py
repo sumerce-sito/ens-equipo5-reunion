@@ -282,7 +282,6 @@ html, body, [class*="css"]  { font-family:'Lato',sans-serif; }
 .map-card .mc-icon  { font-size:1.6rem; line-height:1; }
 .map-card .mc-num   { font-family:'Cinzel',serif; font-size:0.65rem; color:#999; letter-spacing:1px; margin-top:3px; }
 .map-card .mc-title { font-size:0.77rem; font-weight:700; color:#1B3A6B; margin:5px 0 3px; line-height:1.25; }
-.map-card .mc-dur   { font-size:0.68rem; color:#aaa; }
 .map-card .mc-badge { position:absolute; top:6px; right:7px; font-size:0.8rem; }
 
 /* ── Tarjetas de revisión por pareja ──────────────────── */
@@ -838,7 +837,6 @@ def render_preview():
             <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
                 <span class="sec-num {cls}">{sec['num']}</span>
                 <span class="sec-title {cls}">{sec['icon']} {sec['title']}</span>
-                <span style="margin-left:auto;font-size:0.72rem;color:#aaa;">~{sec['dur']} min</span>
             </div>
             {_sec_content_html(sec)}
         </div>
@@ -1032,7 +1030,6 @@ def render_preview():
                     <div class="mc-icon">{sec['icon']}</div>
                     <div class="mc-num">PASO {sec['num']}</div>
                     <div class="mc-title" style="color:{title_c};">{sec['title']}</div>
-                    <div class="mc-dur">⏱ ~{sec['dur']} min</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -1281,7 +1278,6 @@ def render_dashboard():
                     <div class="mc-icon">{sec['icon']}</div>
                     <div class="mc-num">PASO {sec['num']}</div>
                     <div class="mc-title" style="color:{title_c};">{sec['title']}</div>
-                    <div class="mc-dur">⏱ ~{sec['dur']} min</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -1392,7 +1388,6 @@ def render_section(sec):
         <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;">
             <span class="{nc}">{sec['num']}</span>
             <span class="{tc}">{sec['icon']} {sec['title']}</span>
-            <span style="margin-left:auto;font-size:0.75rem;color:#aaa;">~{sec['dur']} min</span>
         </div>
     """, unsafe_allow_html=True)
 
