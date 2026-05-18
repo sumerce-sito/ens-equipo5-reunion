@@ -43,6 +43,9 @@ def img_b64(path):
 LOGO_B64   = img_b64(LOGO_PATH)   if LOGO_PATH.exists()   else ""
 PAPIRO_B64 = img_b64(PAPIRO_PATH) if PAPIRO_PATH.exists() else ""
 
+# URL pública de la app — actualizar cuando se despliegue en Streamlit Cloud
+APP_URL = "https://ens-equipo5-reunion.streamlit.app"
+
 # ─────────────────────────────────────────────────────────────────────────────
 #  REVIEWS PERSISTENCE
 #  • @st.cache_resource  → dict compartido entre TODOS los usuarios del mismo
@@ -72,13 +75,50 @@ def remove_review(rid: str):
     _flush()
 
 def _flush():
-    """Intenta escribir el JSON local (solo funciona cuando hay filesystem)."""
     try:
         REVIEWS_FILE.write_text(
             json.dumps(_store(), ensure_ascii=False, indent=2), encoding="utf-8"
         )
     except Exception:
-        pass   # en Streamlit Cloud read-only filesystem: silencioso
+        pass
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  COMPROMISOS DEL MES — compartidos entre todas las sesiones
+# ─────────────────────────────────────────────────────────────────────────────
+COMMITMENTS_FILE = Path(__file__).parent / "commitments.json"
+
+@st.cache_resource
+def _commitments_store():
+    data = {}
+    if COMMITMENTS_FILE.exists():
+        try:
+            data = json.loads(COMMITMENTS_FILE.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return data
+
+def load_commitments():
+    return _commitments_store()
+
+def save_commitment(rid: str, text: str):
+    _commitments_store()[rid] = {
+        "text": text,
+        "ts": datetime.now().strftime("%d/%m/%Y %H:%M"),
+    }
+    _flush_commitments()
+
+def remove_commitment(rid: str):
+    _commitments_store().pop(rid, None)
+    _flush_commitments()
+
+def _flush_commitments():
+    try:
+        COMMITMENTS_FILE.write_text(
+            json.dumps(_commitments_store(), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+    except Exception:
+        pass
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  CSS — MOBILE-FIRST
@@ -135,7 +175,23 @@ html, body, [class*="css"]  { font-family:'Lato',sans-serif; }
 }
 .section-card.rojo   { border-left-color:#A62020; }
 .section-card.dorado { border-left-color:#C9930A; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn    { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes logoEntrance {
+    0%   { opacity:0; transform:scale(0.2) rotate(-8deg); filter:blur(8px); }
+    60%  { opacity:1; transform:scale(1.08) rotate(2deg); filter:blur(0); }
+    80%  { transform:scale(0.97) rotate(-1deg); }
+    100% { transform:scale(1) rotate(0deg); }
+}
+@keyframes glowPulse {
+    0%,100% { box-shadow: 0 0 0px rgba(201,147,10,0); }
+    50%     { box-shadow: 0 0 28px rgba(201,147,10,0.6); }
+}
+.logo-animate {
+    animation: logoEntrance 1.1s cubic-bezier(.22,1,.36,1) forwards,
+               glowPulse 2s ease-in-out 1.1s 2;
+    border-radius: 16px;
+}
+.logo-static { border-radius: 16px; }
 
 /* ── Número de sección ────────────────────────────────── */
 .sec-num {
@@ -428,7 +484,8 @@ def init():
         "sec_start":    time.time(),
         "seen_preview": set(),
         "preview_sec":  None,
-        "audio_played": False,     # True = ya se intentó autoplay esta sesión
+        "audio_played": False,
+        "first_visit":  True,      # True = primera carga de esta sesión (anima logo)
     }
     for k,v in defs.items():
         if k not in st.session_state: st.session_state[k]=v
@@ -580,6 +637,123 @@ def _sec_content_html(sec):
     return out or '<div style="color:#999;font-size:0.85rem;font-style:italic;">Ver en la reunión.</div>'
 
 
+def render_commitments():
+    """Tablero de compromisos del mes — cada pareja escribe el suyo, visible para todos."""
+    commitments = load_commitments()
+    color_map   = {"azul":"#1B3A6B","rojo":"#A62020","dorado":"#C9930A"}
+
+    st.markdown("""
+    <div style="font-family:'Cinzel',serif;font-size:0.78rem;color:#8B6200;
+                letter-spacing:2px;margin-bottom:0.8rem;text-align:center;">
+        ✍️ COMPROMISOS DEL MES
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Tablero — compromisos ya guardados
+    any_saved = any(r["id"] in commitments for r in REVIEWERS)
+    if any_saved:
+        for r in REVIEWERS:
+            rid = r["id"]
+            if rid in commitments:
+                c = commitments[rid]
+                st.markdown(f"""
+                <div style="background:rgba(255,252,242,0.95);border-radius:12px;
+                            padding:0.8rem 1rem;margin-bottom:0.5rem;
+                            border-left:4px solid {r['fg']};
+                            box-shadow:0 2px 8px rgba(100,70,20,0.10);">
+                    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.4rem;">
+                        <span style="font-size:1.1rem;">{r['icon']}</span>
+                        <span style="font-weight:700;color:{r['fg']};font-size:0.88rem;">{r['label']}</span>
+                        <span style="margin-left:auto;font-size:0.65rem;color:#aaa;">{c['ts']}</span>
+                    </div>
+                    <div style="font-size:0.85rem;color:#333;line-height:1.55;
+                                font-style:italic;">"{c['text']}"</div>
+                </div>
+                """, unsafe_allow_html=True)
+
+        st.markdown("<div style='margin-bottom:0.5rem;'></div>", unsafe_allow_html=True)
+
+    # Formulario para escribir / actualizar compromiso
+    with st.expander("✍️ Escribe o actualiza tu compromiso"):
+        rid_sel = st.selectbox(
+            "¿Quién escribe?",
+            options=[r["id"] for r in REVIEWERS],
+            format_func=lambda x: next(r["label"] for r in REVIEWERS if r["id"] == x),
+            key="commit_who",
+        )
+        existing = commitments.get(rid_sel, {}).get("text", "")
+        txt = st.text_area(
+            "Mi compromiso para este mes:",
+            value=existing,
+            placeholder="Ej: Dedicar 10 minutos diarios a la oración conyugal...",
+            height=90,
+            key="commit_txt",
+        )
+        c1, c2 = st.columns([3, 1])
+        with c1:
+            if st.button("💾 Guardar compromiso", use_container_width=True, type="primary",
+                         key="commit_save"):
+                if txt.strip():
+                    save_commitment(rid_sel, txt.strip())
+                    st.rerun()
+        with c2:
+            if rid_sel in commitments:
+                if st.button("🗑️", use_container_width=True, key="commit_del",
+                             help="Eliminar mi compromiso"):
+                    remove_commitment(rid_sel)
+                    st.rerun()
+
+
+def render_whatsapp():
+    """Botón para compartir el enlace de la app por WhatsApp."""
+    import urllib.parse
+    mensaje = (
+        f"✝ *Equipo #5 ENS — Sector Fusagasugá*\n\n"
+        f"📅 Reunión: *{MEETING_DATE}*\n"
+        f"🏠 Anfitriones: {MEETING_HOST}\n"
+        f"📚 Tema: _{MEETING_TEMA}_\n\n"
+        f"Ingresa aquí para revisar el material antes de la reunión:\n"
+        f"👉 {APP_URL}"
+    )
+    url = f"https://wa.me/?text={urllib.parse.quote(mensaje)}"
+    st.markdown(f"""
+    <a href="{url}" target="_blank" style="text-decoration:none;">
+        <div style="background:linear-gradient(135deg,#25D366,#128C7E);
+                    border-radius:14px;padding:0.85rem 1.2rem;
+                    display:flex;align-items:center;gap:0.8rem;
+                    box-shadow:0 3px 12px rgba(18,140,126,0.35);
+                    margin-bottom:0.8rem;cursor:pointer;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                 fill="white">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15
+                         -.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463
+                         -2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606
+                         .134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025
+                         -.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008
+                         -.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479
+                         0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306
+                         1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719
+                         2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.855L.057 23.869
+                         a.75.75 0 00.918.943l6.186-1.62A11.945 11.945 0 0012 24c6.627 0 12-5.373
+                         12-12S18.627 0 12 0zm0 21.75a9.724 9.724 0 01-4.952-1.355l-.355-.211
+                         -3.674.963.981-3.584-.231-.369A9.722 9.722 0 012.25 12C2.25 6.615 6.615
+                         2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
+            </svg>
+            <div>
+                <div style="color:white;font-weight:700;font-size:0.95rem;">
+                    Compartir por WhatsApp
+                </div>
+                <div style="color:rgba(255,255,255,0.8);font-size:0.75rem;margin-top:1px;">
+                    Envía el enlace al grupo del equipo
+                </div>
+            </div>
+            <span style="margin-left:auto;color:white;font-size:1.2rem;">→</span>
+        </div>
+    </a>
+    """, unsafe_allow_html=True)
+
+
 def render_audio():
     """Reproduce la canción una sola vez al entrar. Autoplay donde el navegador lo permite;
     si lo bloquea (iOS / Chrome móvil) queda el reproductor visible para que el usuario lo active."""
@@ -727,11 +901,16 @@ def render_preview():
     </div>
     """, unsafe_allow_html=True)
 
-    # Logo — st.image lo maneja sin problemas de tamaño
+    # Logo — con animación en primera visita
     if LOGO_PATH.exists():
+        logo_cls = "logo-animate" if st.session_state.first_visit else "logo-static"
+        if st.session_state.first_visit:
+            st.session_state.first_visit = False
         col_l, col_c, col_r = st.columns([1, 6, 1])
         with col_c:
+            st.markdown(f'<div class="{logo_cls}">', unsafe_allow_html=True)
             st.image(str(LOGO_PATH), use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
     # Texto de identidad sobre el mismo fondo
     st.markdown(f"""
@@ -940,8 +1119,14 @@ def render_preview():
                              use_container_width=True, type="primary"):
                     save_review(rid); st.rerun()
 
-    # ── Acceso a la guía completa ────────────────────────────────────────────
+    # ── Compromisos del mes ──────────────────────────────────────────────────
     st.markdown("""<div class="sec-sep"></div>""", unsafe_allow_html=True)
+    render_commitments()
+
+    # ── WhatsApp + acceso a guía ─────────────────────────────────────────────
+    st.markdown("""<div class="sec-sep"></div>""", unsafe_allow_html=True)
+    render_whatsapp()
+
     if st.button("🚀 Abrir guía completa de reunión",
                  use_container_width=True, type="primary"):
         st.session_state.in_meeting = True
