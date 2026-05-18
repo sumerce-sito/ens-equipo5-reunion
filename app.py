@@ -88,7 +88,25 @@ st.markdown("""
 /* ── Reset & base ─────────────────────────────────────── */
 html, body, [class*="css"]  { font-family:'Lato',sans-serif; }
 .main .block-container       { padding: 0.8rem 0.9rem 5rem; max-width: 700px; }
-.stApp                       { background: #F0F4FA; }
+
+/* ── Fondo papiro antiguo ─────────────────────────────── */
+.stApp {
+    background-color: #E8DCC8;
+    background-image:
+        /* Grano de papel — puntos finos aleatorios */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeBlend in='SourceGraphic' mode='multiply'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.10'/%3E%3C/svg%3E"),
+        /* Vetas horizontales suaves de pergamino */
+        repeating-linear-gradient(
+            180deg,
+            transparent 0px,
+            transparent 38px,
+            rgba(139,100,40,0.04) 38px,
+            rgba(139,100,40,0.04) 40px
+        ),
+        /* Degradado base cálido beige-ocre */
+        radial-gradient(ellipse at 20% 20%, #F2E6C8 0%, #E0C99A 40%, #C9A96E 100%);
+    background-attachment: fixed;
+}
 #MainMenu, footer, header    { visibility: hidden; }
 
 /* ── Sidebar colapsado en móvil ───────────────────────── */
@@ -119,11 +137,13 @@ html, body, [class*="css"]  { font-family:'Lato',sans-serif; }
 
 /* ── Sección activa ───────────────────────────────────── */
 .section-card {
-    background:white; border-radius:14px;
-    box-shadow:0 3px 20px rgba(27,58,107,0.10);
+    background: rgba(255,252,242,0.92);
+    border-radius:14px;
+    box-shadow:0 3px 20px rgba(100,70,20,0.13);
     padding:1.4rem 1.2rem; margin-bottom:1rem;
     border-left:5px solid #1B3A6B;
     animation:fadeIn 0.35s ease;
+    backdrop-filter: blur(2px);
 }
 .section-card.rojo   { border-left-color:#A62020; }
 .section-card.dorado { border-left-color:#C9930A; }
@@ -204,10 +224,11 @@ html, body, [class*="css"]  { font-family:'Lato',sans-serif; }
 }
 
 .map-card {
-    background:white; border-radius:12px;
+    background: rgba(255,252,242,0.90);
+    border-radius:12px;
     padding:0.9rem 0.7rem 0.7rem;
     text-align:center;
-    box-shadow:0 2px 12px rgba(27,58,107,0.09);
+    box-shadow:0 2px 12px rgba(100,70,20,0.12);
     border-top:4px solid #1B3A6B;
     position:relative;
     cursor:pointer;
@@ -225,7 +246,7 @@ html, body, [class*="css"]  { font-family:'Lato',sans-serif; }
     border-radius:14px; padding:1rem 1.1rem;
     margin-bottom:0.7rem;
     display:flex; align-items:center; gap:0.9rem;
-    box-shadow:0 2px 10px rgba(0,0,0,0.07);
+    box-shadow:0 2px 10px rgba(100,70,20,0.10);
     transition: transform 0.15s;
 }
 .review-card:active { transform:scale(0.98); }
@@ -794,8 +815,8 @@ def render_preview():
                 else "linear-gradient(90deg,#1B3A6B,#2E5FA3)")
 
     st.markdown(f"""
-    <div style="background:white;border-radius:12px;padding:0.8rem 1rem;
-                margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+    <div style="background:rgba(255,252,242,0.92);border-radius:12px;padding:0.8rem 1rem;
+                margin-bottom:1rem;box-shadow:0 2px 8px rgba(100,70,20,0.10);">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
             <span style="font-family:'Cinzel',serif;font-size:0.75rem;color:#888;letter-spacing:1px;">
                 TEMARIO · LEE CADA SECCIÓN
