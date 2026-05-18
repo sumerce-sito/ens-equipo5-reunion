@@ -1,0 +1,10 @@
+# Logs y temporales
+streamlit.log
+*.log
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Reviews locales (se regeneran en la app)
+reviews.json
