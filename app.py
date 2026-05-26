@@ -582,13 +582,13 @@ def review_banner():
 def render_downloads():
     """Botones de descarga de la guía y el capítulo de estudio."""
     ASSETS = Path(__file__).parent / "assets"
-    docx_path = ASSETS / "reunion.docx"
     cap_path  = ASSETS / "capitulo3.pdf"
 
-    has_docx = docx_path.exists()
-    has_cap  = cap_path.exists()
+    pdf_path  = ASSETS / "reunion.pdf"
+    has_pdf   = pdf_path.exists()
+    has_cap   = cap_path.exists()
 
-    if not has_docx and not has_cap:
+    if not has_pdf and not has_cap:
         return
 
     st.markdown("""
@@ -604,17 +604,17 @@ def render_downloads():
     </div>
     """, unsafe_allow_html=True)
 
-    n = sum([has_docx, has_cap])
+    n = sum([has_pdf, has_cap])
     cols = st.columns(n)
     ci = 0
 
-    if has_docx:
+    if has_pdf:
         with cols[ci]:
             st.download_button(
-                label="📄 Guía de Reunión (.docx)",
-                data=docx_path.read_bytes(),
-                file_name="Guia_Reunion_Equipo5_ENS.docx",
-                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                label="📄 Guía de Reunión (.pdf)",
+                data=pdf_path.read_bytes(),
+                file_name="Guia_Reunion_Equipo5_ENS_Mayo2026.pdf",
+                mime="application/pdf",
                 use_container_width=True,
             )
         ci += 1
