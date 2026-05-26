@@ -348,15 +348,11 @@ if PAPIRO_B64:
 # ─────────────────────────────────────────────────────────────────────────────
 SECTIONS = [
     {"id":0,"num":1,"title":"Oración de Bienvenida","icon":"🙏","color":"azul","tipo":"oracion","dur":4,
-     "texto":"""Al comenzar esta reunión, Señor, nuestros corazones se levantan hacia Ti en busca de tu mirada. Escúchanos, Señor. Da respuesta a nuestras preguntas y ayúdanos en nuestras inquietudes, Tú que eres nuestro Dios en quien nosotros confiamos.
+     "texto":"""**Señor, te damos gracias**
 
-En esta reunión, ponemos en tus manos nuestros miedos e ilusiones. En tus ojos, ponemos la pureza y sinceridad de nuestra búsqueda. Guíanos, Señor; que tu Espíritu Santo nos ayude en cada paso. Que nuestras palabras arranquen de lo profundo y sean verdaderas.
+por el don del sacramento del matrimonio y por la inmensa riqueza de caminar acompañados por nuestros hermanos de equipo. Te pedimos que tu Espíritu Santo ilumine cada uno de nuestros intercambios, nos dé la gracia de escucharnos desde el corazón y nos impulse a progresar juntos en el amor a Ti y al prójimo. Bendice a los dueños de esta casa por su hospitalidad, y concédenos que todo lo que hoy compartamos fortalezca nuestra espiritualidad conyugal, acercándonos con paso firme hacia la santidad a la que nos llamas en nuestra vida cotidiana.
 
-A Ti abrimos los proyectos y planes de esta reunión: **Acompáñanos.**
-A Ti ofrecemos lo que somos y lo que tenemos: **Acógelo.**
-A Ti, que eres Dios de la Vida, te pedimos fuerza: **Anímanos.**
-
-Fortalece nuestro caminar como equipo para que seamos testimonio de tu amor al servicio de la Iglesia. Bendice esta reunión y guíala por el camino justo. **✝ Amén**"""},
+**✝ Amén.**"""},
 
     {"id":1,"num":2,"title":"Oración al Espíritu Santo","icon":"🕊","color":"rojo","tipo":"oracion","dur":3,
      "texto":"""Espíritu Santo, Amor del Padre y del Hijo, Tú que has sido enviado para iluminar nuestro camino hacia la verdad plena; Tú que llenas de sabiduría y fortaleza nuestra mente para hacer la voluntad del Padre eterno; Tú que eres aliento de vida que renueva todas las cosas:
@@ -371,8 +367,16 @@ Espíritu Santo, inspíranos siempre las palabras y obras necesarias para vivir 
 
 Señor Jesucristo, al comer hoy nuestro pan, ayúdanos a vivir en comunión fraternal y que tu amor reine entre nosotros. **✝ Amén**"""},
 
-    {"id":3,"num":4,"title":"Puesta en Común","icon":"💬","color":"azul","tipo":"notas","dur":20,
-     "instruccion":"Compartimos las experiencias del mes: momentos en que nos sentimos queridos y acompañados, momentos en que dimos gracias y los que deberíamos haber dado.",
+    {"id":3,"num":4,"title":"Puesta en Común","icon":"💬","color":"azul","tipo":"mixto","dur":20,
+     "texto":"""Queridos amigos del equipo:
+
+**¿De qué se trata?** Es el momento para hablar sobre los acontecimientos más importantes que hemos vivido desde la última vez que nos vimos. Aquí ponemos en común nuestra vida real, enmarcada en la pareja pero sin dejar de lado las preocupaciones familiares o profesionales, nuestros éxitos y fracasos, los descubrimientos, las tristezas y las alegrías.
+
+**¿Por qué lo hacemos?** Porque la voluntad de abrirse a los demás, de hablar y de escucharnos con atención fortalece nuestra amistad. Como nos enseña el movimiento: *"no podemos amar a quien no conocemos"*. Este espacio humano nos prepara para la "Participación", donde más adelante compartiremos nuestros esfuerzos puramente espirituales.
+
+**Nuestra regla de oro:** Para que este momento funcione, necesitamos una gran confianza recíproca y la certeza de la discreción y del **secreto absoluto**. Lo que revelamos en el equipo, no debe salir de él.
+
+*"Ante todo, tened entre vosotros intenso amor."* (1 Pe 4,8)""",
      "campos":[
          {"key":"compromisos_ant","label":"📋 Compromisos del mes anterior","ph":"¿Cómo nos fue con los compromisos?"},
          {"key":"experiencias","label":"✨ Experiencias significativas del mes","ph":"Momentos de gracia, dificultad o crecimiento..."},
@@ -380,16 +384,37 @@ Señor Jesucristo, al comer hoy nuestro pan, ayúdanos a vivir en comunión frat
 
     {"id":4,"num":5,"title":"Escucha de la Palabra","icon":"📖","color":"azul","tipo":"mixto","dur":15,
      "instruccion":"Escucha activa del pasaje elegido para esta reunión.",
-     "texto":"""**1 Corintios 13, 4-7**
+     "texto":"""**Génesis 2, 18-23**
 
-El amor es paciente, es servicial; el amor no es envidioso, no hace alarde, no se envanece, no procede con bajeza, no busca su propio interés, no se irrita, no tiene en cuenta el mal recibido, no se alegra de la injusticia, sino que se regocija con la verdad.
+El Señor Dios se dijo: *No es bueno que el hombre esté solo; voy a hacerle a alguien como él, que le ayude.* Entonces el Señor Dios formó de la tierra todas las bestias del campo y todos los pájaros del cielo, y se los presentó al hombre, para ver qué nombre les ponía. Y cada ser vivo llevaría el nombre que el hombre le pusiera. Así el hombre puso nombre a todos los ganados, a los pájaros del cielo y a las bestias del campo; pero no encontró ninguno como él, que le ayudase.
 
-El amor todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta.""",
+Entonces el Señor Dios hizo caer un letargo sobre el hombre, que se durmió; le sacó una costilla, y le cerró el sitio con carne. Y el Señor Dios formó, de la costilla que había sacado del hombre, una mujer, y se la presentó al hombre. El hombre dijo: *¡Esta sí que es hueso de mis huesos y carne de mi carne!* Su nombre será «mujer», porque ha salido del varón. Por eso abandonará el varón a su padre y a su madre, se unirá a su mujer y serán los dos una sola carne.""",
      "campos":[
          {"key":"reflexion","label":"💭 Reflexión y puntos clave","ph":"Ideas que surgieron en la reflexión compartida..."},
      ]},
 
-    {"id":5,"num":6,"title":"Oración Comunitaria","icon":"🙌","color":"rojo","tipo":"mixto","dur":10,
+    {"id":5,"num":6,"title":"Oración Litúrgica","icon":"📜","color":"azul","tipo":"oracion","dur":8,
+     "texto":"""**Salmo 95**
+
+*Contad las maravillas del Señor a todas las naciones.*
+
+Cantad al Señor un cántico nuevo, cantad al Señor, toda la tierra; cantad al Señor, bendecid su nombre.
+
+*Contad las maravillas del Señor a todas las naciones.*
+
+Proclamad día tras día su victoria. Contad a los pueblos su gloria, sus maravillas a todas las naciones.
+
+*Contad las maravillas del Señor a todas las naciones.*
+
+Familias de los pueblos, aclamad al Señor, aclamad la gloria y el poder del Señor; aclamad la gloria del nombre del Señor.
+
+*Contad las maravillas del Señor a todas las naciones.*
+
+Decid a los pueblos: «El Señor es rey: él afianzó el orbe, y no se moverá; él gobierna a los pueblos rectamente».
+
+*Contad las maravillas del Señor a todas las naciones.*"""},
+
+    {"id":6,"num":7,"title":"Oración Comunitaria","icon":"🙌","color":"rojo","tipo":"mixto","dur":10,
      "texto":"""Hacemos silencio y recordamos lo que el Señor ha hecho con cada uno, todo lo que nos ha dado, las veces en que me he sentido amado y sanado por Él, dejando que brote en mi interior un agradecimiento sincero y profundo.
 
 *«Te doy gracias, Señor…»*""",
@@ -397,7 +422,7 @@ El amor todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta.""",
          {"key":"intercesiones","label":"🙏 Intenciones y acciones de gracias","ph":"Lo que el equipo lleva al Señor hoy..."},
      ]},
 
-    {"id":6,"num":7,"title":"Puntos de Esfuerzo","icon":"⭐","color":"dorado","tipo":"esfuerzos","dur":10,
+    {"id":7,"num":8,"title":"Puntos de Esfuerzo","icon":"⭐","color":"dorado","tipo":"esfuerzos","dur":10,
      "esfuerzos":[
          ("Escucha de la Palabra","Leer asiduamente la Sagrada Escritura para arraigarse en el Evangelio. (Hch 4,12)","#1B3A6B"),
          ("Oración Personal","Encuentro diario y silencioso con Dios — tiempo reservado para estar a solas con Él. (Col 4,2)","#1B3A6B"),
@@ -406,20 +431,26 @@ El amor todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta.""",
          ("La Regla de Vida","Imponerse esfuerzos personales concretos para adherirse más al proyecto divino.","#C9930A"),
          ("Retiro Espiritual","Hacer cada año un retiro: tiempo para detenerse, escuchar y renovarse. (Mc 6,31)","#C9930A"),
      ],
+     "instruccion":"""Los Puntos Concretos de Esfuerzo (PCE) son los pilares fundamentales de la espiritualidad conyugal. Lejos de ser obligaciones impuestas, son actitudes interiores que deben despertarse desde la libertad y la adhesión del corazón. Su objetivo es provocar un cambio de vida que acerque a los esposos al Señor, el uno al otro y a las demás personas en su camino hacia la santidad.""",
      "campos":[
          {"key":"compromisos_esf","label":"✍️ Compromisos personales de esta reunión","ph":"Cada pareja anota su compromiso para el próximo mes..."},
      ]},
 
-    {"id":7,"num":8,"title":"Tema de Estudio","icon":"📚","color":"azul","tipo":"mixto","dur":25,
+    {"id":8,"num":9,"title":"Tema de Estudio","icon":"📚","color":"azul","tipo":"mixto","dur":25,
      "instruccion":"Presentación y reflexión sobre el tema del mes.",
      "texto":f"""**{MEETING_TEMA}**
 
-*{MEETING_QUOTE}*""",
+*{MEETING_QUOTE}*
+
+**El descubrimiento de la incompletitud:** Caffarel explica que, antes de enamorarse, las personas suelen vivir como si se bastaran a sí mismas. Sin embargo, el amor les hace tomar conciencia de una "pobreza radical": descubren que son seres incompletos que necesitan a esa persona complementaria —la "otra mitad del mundo"— para alcanzar la plenitud. Dios utiliza esta experiencia para llevarnos a descubrir una incompletitud aún más profunda: nuestra dependencia absoluta frente a Él.
+
+**La gratuidad del amor:** El amor es un milagro imprevisible y libre que no se puede comprar ni exigir. Esta vivencia de recibir el amor humano gratuitamente nos sirve de espejo para comprender el "reino de la gracia" divina: el amor y la salvación de Dios son dones de absoluta gratuidad que el ser humano está llamado a acoger con humildad.""",
      "campos":[
          {"key":"tema_sint","label":"💡 Síntesis y puntos clave","ph":"Ideas principales, citas, preguntas del grupo..."},
      ]},
 
-    {"id":8,"num":9,"title":"Varios","icon":"📣","color":"dorado","tipo":"notas","dur":5,
+    {"id":9,"num":10,"title":"Informaciones","icon":"📣","color":"dorado","tipo":"notas","dur":5,
+     "instruccion":"Momento para informar sobre eventos del movimiento (retiros, encuentros de sector, actividades formativas), organizar la logística interna del equipo y compartir cualquier otra información práctica necesaria.",
      "campos":[
          {"key":"sector","label":"📍 Reunión del Sector","ph":"Lugar / Tema / Fecha"},
          {"key":"interequipos","label":"🤝 Interequipos","ph":"Lugar / Tema / Fecha"},
@@ -427,13 +458,11 @@ El amor todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta.""",
          {"key":"otros","label":"📢 Otros anuncios","ph":""},
      ]},
 
-    {"id":9,"num":10,"title":"Oración Final","icon":"✝","color":"rojo","tipo":"notas","dur":5,
-     "instruccion":"Oración final — libre o preparada por el hogar anfitrión.",
+    {"id":10,"num":11,"title":"Oración Final","icon":"✝","color":"rojo","tipo":"notas","dur":5,
+     "instruccion":"Oración final a cargo de Amparo y Fernando — libre o preparada por el hogar.",
      "campos":[
          {"key":"oracion_final","label":"🙏 Oración final","ph":"Escribe aquí o deja en blanco si es espontánea..."},
      ]},
-
-    {"id":10,"num":11,"title":"Magnificat","icon":"🌟","color":"dorado","tipo":"magnificat","dur":5},
 
     {"id":11,"num":12,"title":"Oración por la Canonización del P. Henri Caffarel","icon":"✝","color":"rojo","tipo":"oracion","dur":4,
      "texto":"""**Dios, Padre nuestro,**
@@ -464,6 +493,8 @@ cada cual según la vocación del Espíritu.
 
 *Dios Padre nuestro, invocamos al Padre Caffarel para…*
 *(precisar la gracia a pedir)*"""},
+
+    {"id":12,"num":13,"title":"Magnificat","icon":"🌟","color":"dorado","tipo":"magnificat","dur":5},
 ]
 
 TOTAL = len(SECTIONS)
@@ -843,7 +874,7 @@ def render_preview():
         """, unsafe_allow_html=True)
 
         # Descarga del capítulo en la sección Tema de Estudio (preview)
-        if sec["id"] == 7:
+        if sec["id"] == 8:
             cap_path = Path(__file__).parent / "assets" / "capitulo3.pdf"
             if cap_path.exists():
                 st.download_button(
@@ -1406,7 +1437,7 @@ def render_section(sec):
         render_magnificat()
 
     # Descarga del capítulo en la sección Tema de Estudio
-    if sec["id"] == 7:
+    if sec["id"] == 8:
         cap_path = Path(__file__).parent / "assets" / "capitulo3.pdf"
         if cap_path.exists():
             st.download_button(
