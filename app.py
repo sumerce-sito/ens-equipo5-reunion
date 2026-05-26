@@ -444,7 +444,17 @@ Decid a los pueblos: «El Señor es rey: él afianzó el orbe, y no se moverá; 
 
 **El descubrimiento de la incompletitud:** Caffarel explica que, antes de enamorarse, las personas suelen vivir como si se bastaran a sí mismas. Sin embargo, el amor les hace tomar conciencia de una "pobreza radical": descubren que son seres incompletos que necesitan a esa persona complementaria —la "otra mitad del mundo"— para alcanzar la plenitud. Dios utiliza esta experiencia para llevarnos a descubrir una incompletitud aún más profunda: nuestra dependencia absoluta frente a Él.
 
-**La gratuidad del amor:** El amor es un milagro imprevisible y libre que no se puede comprar ni exigir. Esta vivencia de recibir el amor humano gratuitamente nos sirve de espejo para comprender el "reino de la gracia" divina: el amor y la salvación de Dios son dones de absoluta gratuidad que el ser humano está llamado a acoger con humildad.""",
+**La gratuidad del amor:** El amor es un milagro imprevisible y libre que no se puede comprar ni exigir. Esta vivencia de recibir el amor humano gratuitamente nos sirve de espejo para comprender el "reino de la gracia" divina: el amor y la salvación de Dios son dones de absoluta gratuidad que el ser humano está llamado a acoger con humildad.
+
+---
+
+**Preguntas sugeridas para la reunión de equipo**
+
+**1.** ¿Qué descubrimientos hemos hecho al leer los textos del padre Caffarel? Hablemos tanto de nuestro amor conyugal como de nuestra relación personal y de pareja con Dios.
+
+**2.** ¿Qué frutos del deber de sentarse de este mes podríamos compartir con el equipo?
+
+**3.** Un amor gratuito de nuestro cónyuge y del Señor se construye día a día. ¿De qué manera puede convertirse en una fuente de gracia para nosotros y para nuestro matrimonio?""",
      "campos":[
          {"key":"tema_sint","label":"💡 Síntesis y puntos clave","ph":"Ideas principales, citas, preguntas del grupo..."},
      ]},
